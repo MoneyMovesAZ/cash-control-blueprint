@@ -1,0 +1,1027 @@
+                    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Control Blueprint - Interactive Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .guide-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 40px 40px 120px 40px;
+            display: none;
+            position: relative;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f7fafc;
+        }
+
+        .page-number {
+            background: linear-gradient(135deg, #1b4332, #2d5a3d);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .progress-indicator {
+            flex: 1;
+            margin: 0 20px;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1b4332, #ff6d00);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #1b4332;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: #1b4332;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #2d5a3d;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff6d00;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-left: 4px solid #7209b7;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(114, 9, 183, 0.1);
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #fff7ed, #fed7aa);
+            border: 2px solid #ff6d00;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 12px;
+            font-style: italic;
+            color: #c2410c;
+        }
+
+        .mini-win {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 2px solid #1b4332;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .interactive-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 8px 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .interactive-input:focus {
+            outline: none;
+            border-color: #7209b7;
+            box-shadow: 0 0 0 3px rgba(114, 9, 183, 0.1);
+        }
+
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .tracker-header {
+            font-weight: 600;
+            color: #1b4332;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+            accent-color: #1b4332;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #1b4332, #2d5a3d);
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(27, 67, 50, 0.3);
+        }
+
+        .nav-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .cover-illustration {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fff, #f8fafc);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6d00;
+            display: block;
+        }
+
+        .habit-swap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .habit-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 4px solid #ff6d00;
+        }
+
+        .quick-win-item {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #1b4332;
+            display: flex;
+            align-items: center;
+        }
+
+        .completion-tracker {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .completion-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .completion-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1b4332, #ff6d00);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .social-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 12px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #7209b7, #9333ea);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(114, 9, 183, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(114, 9, 183, 0.4);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #fff, #f8fafc);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border: 2px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .social-proof {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                padding: 20px 20px 120px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tracker-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .habit-swap-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <!-- Page 1: Cover -->
+        <div class="page active" id="page1">
+            <div class="page-header">
+                <div class="page-number">Page 1 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 9%"></div>
+                </div>
+            </div>
+            
+            <div class="cover-illustration">💰📋✨</div>
+            
+            <h1>Cash Control Blueprint</h1>
+            <div class="subtitle">3 simple steps to take control of your money today</div>
+            
+            <div class="highlight-box">
+                <h3>🎯 What You'll Learn:</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Track your spending in under 5 minutes daily</li>
+                    <li>Replace money-draining habits with cash-building ones</li>
+                    <li>Take immediate action to boost your bank balance</li>
+                </ul>
+            </div>
+            
+            <div class="mini-win">
+                <strong>Mini Win:</strong> Just by opening this guide, you're already ahead of 80% of people your age who never track their money! 🎉
+            </div>
+            
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="https://www.tiktok.com/@moneymovesaz" target="_blank" class="cta-button" style="background: linear-gradient(135deg, #ff6d00, #ff8533); padding: 12px 25px; font-size: 1rem;">
+                    📱 Follow My TikTok
+                </a>
+            </div>
+        </div>
+
+        <!-- Page 2: Introduction -->
+        <div class="page" id="page2">
+            <div class="page-header">
+                <div class="page-number">Page 2 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 18%"></div>
+                </div>
+            </div>
+            
+            <h2>📊 Why Money Habits Fail</h2>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 25px;">Most teens and young adults struggle with money because they fall into these common traps:</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">73%</span>
+                    <p>Never track their spending</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">£127</span>
+                    <p>Average monthly "mystery spending"</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">4.2hrs</span>
+                    <p>Daily social media scrolling</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>🧠 Did You Know?</h3>
+                <p>People who track their spending for just 30 days reduce unnecessary purchases by 23% on average. The simple act of awareness creates immediate change!</p>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Quick Tip:</strong> Your brain treats small purchases (under £10) as "basically free" - but these add up to hundreds per month!
+            </div>
+        </div>
+
+        <!-- Page 3: Step 1 - Track Your Spending -->
+        <div class="page" id="page3">
+            <div class="page-header">
+                <div class="page-number">Page 3 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 27%"></div>
+                </div>
+            </div>
+            
+            <h2>📅 Step 1: Track Your Spending Today</h2>
+            
+            <p style="margin-bottom: 20px;">Start with just ONE day. Write down every purchase, no matter how small:</p>
+            
+            <div class="tracker-grid">
+                <div class="tracker-header">What I Bought</div>
+                <div class="tracker-header">Amount</div>
+                <div class="tracker-header">Necessary?</div>
+                
+                <input type="text" class="interactive-input" placeholder="e.g., Coffee, lunch, app purchase...">
+                <input type="text" class="interactive-input" placeholder="£">
+                <select class="interactive-input">
+                    <option>Choose...</option>
+                    <option>Yes - needed it</option>
+                    <option>No - wanted it</option>
+                    <option>Maybe - unsure</option>
+                </select>
+                
+                <input type="text" class="interactive-input" placeholder="Next purchase...">
+                <input type="text" class="interactive-input" placeholder="£">
+                <select class="interactive-input">
+                    <option>Choose...</option>
+                    <option>Yes - needed it</option>
+                    <option>No - wanted it</option>
+                    <option>Maybe - unsure</option>
+                </select>
+                
+                <input type="text" class="interactive-input" placeholder="Another purchase...">
+                <input type="text" class="interactive-input" placeholder="£">
+                <select class="interactive-input">
+                    <option>Choose...</option>
+                    <option>Yes - needed it</option>
+                    <option>No - wanted it</option>
+                    <option>Maybe - unsure</option>
+                </select>
+            </div>
+            
+            <div class="mini-win">
+                <strong>Mini Win Tracker:</strong> 
+                <label class="checkbox-item">
+                    <input type="checkbox" onchange="updateProgress()"> I tracked at least 3 purchases today
+                </label>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Set a phone reminder for 8pm to do your daily money check-in!
+            </div>
+        </div>
+
+        <!-- Page 4: Step 1 Example -->
+        <div class="page" id="page4">
+            <div class="page-header">
+                <div class="page-number">Page 4 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 36%"></div>
+                </div>
+            </div>
+            
+            <h2>✅ Step 1: Example Tracker</h2>
+            
+            <p style="margin-bottom: 20px;">Here's what a completed tracker looks like:</p>
+            
+            <div class="tracker-grid">
+                <div class="tracker-header">What I Bought</div>
+                <div class="tracker-header">Amount</div>
+                <div class="tracker-header">Necessary?</div>
+                
+                <div style="padding: 10px; background: #f0fdf4;">Coffee + pastry</div>
+                <div style="padding: 10px; background: #f0fdf4;">£6.50</div>
+                <div style="padding: 10px; background: #fef2f2;">No - wanted it</div>
+                
+                <div style="padding: 10px; background: #f0fdf4;">Lunch meal deal</div>
+                <div style="padding: 10px; background: #f0fdf4;">£3.50</div>
+                <div style="padding: 10px; background: #f0fdf4;">Yes - needed it</div>
+                
+                <div style="padding: 10px; background: #f0fdf4;">App subscription</div>
+                <div style="padding: 10px; background: #f0fdf4;">£4.99</div>
+                <div style="padding: 10px; background: #fef2f2;">No - forgot I had it</div>
+                
+                <div style="padding: 10px; background: #f0fdf4;">Bus fare</div>
+                <div style="padding: 10px; background: #f0fdf4;">£2.80</div>
+                <div style="padding: 10px; background: #f0fdf4;">Yes - needed it</div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>💡 Mini Bonus Tip</h3>
+                <p>This person saved £11.49 in "wants" in just one day! Track consistently for 30 days like this → see real results that could save you £300+ per month.</p>
+            </div>
+            
+            <div class="mini-win">
+                <strong>Your Reflection:</strong><br>
+                <textarea class="interactive-input" rows="3" placeholder="What surprised you most about your spending today?"></textarea>
+            </div>
+        </div>
+
+        <!-- Page 5: Step 2 - Habit Swaps -->
+        <div class="page" id="page5">
+            <div class="page-header">
+                <div class="page-number">Page 5 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 45%"></div>
+                </div>
+            </div>
+            
+            <h2>🔄 Step 2: Swap Bad Habits for Cash</h2>
+            
+            <p style="margin-bottom: 25px;">Replace money-draining habits with money-building ones:</p>
+            
+            <div class="habit-swap-grid">
+                <div class="habit-card">
+                    <h3 style="color: #dc2626;">❌ Instead of...</h3>
+                    <ul style="margin-left: 15px;">
+                        <li>Scrolling for 1 hour</li>
+                        <li>Buying coffee out</li>
+                        <li>Impulse online shopping</li>
+                        <li>Eating takeaway</li>
+                        <li>Unused subscriptions</li>
+                    </ul>
+                </div>
+                
+                <div class="habit-card">
+                    <h3 style="color: #16a34a;">✅ Do this...</h3>
+                    <ul style="margin-left: 15px;">
+                        <li>Freelance/tutor for 1 hour</li>
+                        <li>Make coffee at home</li>
+                        <li>Sell items you don't use</li>
+                        <li>Cook simple meals</li>
+                        <li>Cancel & save that money</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mini-win">
+                <strong>💡 Your Turn - Write 3 Swaps You'll Try:</strong><br>
+                <input type="text" class="interactive-input" placeholder="1. Instead of _______, I'll _______">
+                <input type="text" class="interactive-input" placeholder="2. Instead of _______, I'll _______">
+                <input type="text" class="interactive-input" placeholder="3. Instead of _______, I'll _______">
+            </div>
+            
+            <div class="tip-box">
+                <strong>Quick Tip:</strong> Start with just ONE swap. Master it for a week before adding another!
+            </div>
+        </div>
+
+        <!-- Page 6: Step 2 Example -->
+        <div class="page" id="page6">
+            <div class="page-header">
+                <div class="page-number">Page 6 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 55%"></div>
+                </div>
+            </div>
+            
+            <h2>✨ Step 2: Real Example</h2>
+            
+            <p style="margin-bottom: 20px;">Here's how someone successfully made habit swaps:</p>
+            
+            <div class="habit-swap-grid">
+                <div class="habit-card">
+                    <h3 style="color: #dc2626;">❌ Old Habits</h3>
+                    <div style="margin: 10px 0; padding: 10px; background: #fef2f2; border-radius: 6px;">
+                        <strong>Morning coffee run:</strong> £4.50 daily
+                    </div>
+                    <div style="margin: 10px 0; padding: 10px; background: #fef2f2; border-radius: 6px;">
+                        <strong>Evening scroll:</strong> 2 hours on TikTok
+                    </div>
+                    <div style="margin: 10px 0; padding: 10px; background: #fef2f2; border-radius: 6px;">
+                        <strong>Unused gym membership:</strong> £25/month
+                    </div>
+                </div>
+                
+                <div class="habit-card">
+                    <h3 style="color: #16a34a;">✅ New Habits</h3>
+                    <div style="margin: 10px 0; padding: 10px; background: #f0fdf4; border-radius: 6px;">
+                        <strong>Home coffee + thermos:</strong> Save £4.50 daily
+                    </div>
+                    <div style="margin: 10px 0; padding: 10px; background: #f0fdf4; border-radius: 6px;">
+                        <strong>Tutoring online:</strong> Earn £20/hour
+                    </div>
+                    <div style="margin: 10px 0; padding: 10px; background: #f0fdf4; border-radius: 6px;">
+                        <strong>Home workouts:</strong> Save £25/month
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>📈 Monthly Impact:</h3>
+                <p><strong>Saved:</strong> £135 (coffee) + £25 (gym) = £160<br>
+                <strong>Earned:</strong> £160 (8 hours tutoring)<br>
+                <strong>Total Monthly Boost:</strong> £320!</p>
+            </div>
+            
+            <div class="mini-win">
+                <strong>Reflection Prompt:</strong><br>
+                <textarea class="interactive-input" rows="3" placeholder="Write 3 swaps you will try tomorrow..."></textarea>
+            </div>
+        </div>
+
+        <!-- Page 7: Step 3 - Quick Wins -->
+        <div class="page" id="page7">
+            <div class="page-header">
+                <div class="page-number">Page 7 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 64%"></div>
+                </div>
+            </div>
+            
+            <h2>⚡ Step 3: Quick Wins to Boost Your Bank</h2>
+            
+            <p style="margin-bottom: 25px;">Take these micro-actions TODAY for immediate cash flow:</p>
+            
+            <div class="quick-win-item">
+                <input type="checkbox" style="margin-right: 15px; transform: scale(1.3);" onchange="updateQuickWins()">
+                <div>
+                    <strong>🛍️ Sell Something Online</strong><br>
+                    <span style="color: #6b7280;">Find 1 item you don't use → List on Facebook Marketplace/Vinted → Earn £10-50</span>
+                </div>
+            </div>
+            
+            <div class="quick-win-item">
+                <input type="checkbox" style="margin-right: 15px; transform: scale(1.3);" onchange="updateQuickWins()">
+                <div>
+                    <strong>💼 Offer a Quick Service</strong><br>
+                    <span style="color: #6b7280;">Dog walking, tutoring, cleaning → Post in local groups → Earn £15-30</span>
+                </div>
+            </div>
+            
+            <div class="quick-win-item">
+                <input type="checkbox" style="margin-right: 15px; transform: scale(1.3);" onchange="updateQuickWins()">
+                <div>
+                    <strong>💳 Cancel Unused Subscriptions</strong><br>
+                    <span style="color: #6b7280;">Check bank statements → Cancel 1 forgotten subscription → Save £5-15/month</span>
+                </div>
+            </div>
+            
+            <div class="completion-tracker">
+                <h3>Mini Win Tracker</h3>
+                <div class="completion-bar">
+                    <div class="completion-fill" id="quickWinProgress"></div>
+                </div>
+                <p id="quickWinText">Complete the actions above to see your progress!</p>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Set a 25-minute timer and tackle just ONE of these today!
+            </div>
+        </div>
+
+        <!-- Page 8: Step 3 Example -->
+        <div class="page" id="page8">
+            <div class="page-header">
+                <div class="page-number">Page 8 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 73%"></div>
+                </div>
+            </div>
+            
+            <h2>🎯 Step 3: Success Example</h2>
+            
+            <p style="margin-bottom: 20px;">Here's how someone completed all 3 quick wins in one afternoon:</p>
+            
+            <div class="quick-win-item" style="background: #f0fdf4; border-left-color: #16a34a;">
+                <span style="color: #16a34a; font-size: 1.5rem; margin-right: 15px;">✅</span>
+                <div>
+                    <strong>Sold old textbooks on Facebook</strong><br>
+                    <span style="color: #16a34a;">Result: £35 earned in 2 days</span>
+                </div>
+            </div>
+            
+            <div class="quick-win-item" style="background: #f0fdf4; border-left-color: #16a34a;">
+                <span style="color: #16a34a; font-size: 1.5rem; margin-right: 15px;">✅</span>
+                <div>
+                    <strong>Posted dog walking service in local group</strong><br>
+                    <span style="color: #16a34a;">Result: 3 bookings, £60 earned this week</span>
+                </div>
+            </div>
+            
+            <div class="quick-win-item" style="background: #f0fdf4; border-left-color: #16a34a;">
+                <span style="color: #16a34a; font-size: 1.5rem; margin-right: 15px;">✅</span>
+                <div>
+                    <strong>Cancelled unused Spotify & Netflix accounts</strong><br>
+                    <span style="color: #16a34a;">Result: £18/month saved (£216/year!)</span>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>🔥 Did You Know?</h3>
+                <p>Tracking these small actions consistently can help you build an extra £500+ per month. The key is turning these one-time wins into regular habits!</p>
+            </div>
+            
+            <div class="mini-win">
+                <strong>Your Quick Win Plan:</strong><br>
+                <textarea class="interactive-input" rows="3" placeholder="Which quick win will you tackle first and when?"></textarea>
+            </div>
+        </div>
+
+        <!-- Page 9: Daily Action Tracker -->
+        <div class="page" id="page9">
+            <div class="page-header">
+                <div class="page-number">Page 9 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 82%"></div>
+                </div>
+            </div>
+            
+            <h2>📋 Daily Action Tracker</h2>
+            
+            <p style="margin-bottom: 20px;">Combine all 3 steps in your daily routine:</p>
+            
+            <div class="completion-tracker">
+                <h3>Today's Cash Control Checklist</h3>
+                
+                <label class="checkbox-item">
+                    <input type="checkbox" onchange="updateDailyProgress()">
+                    <span><strong>Step 1:</strong> I tracked my spending today (even small purchases)</span>
+                </label>
+                
+                <label class="checkbox-item">
+                    <input type="checkbox" onchange="updateDailyProgress()">
+                    <span><strong>Step 2:</strong> I made at least 1 habit swap (saved or earned money)</span>
+                </label>
+                
+                <label class="checkbox-item">
+                    <input type="checkbox" onchange="updateDailyProgress()">
+                    <span><strong>Step 3:</strong> I took 1 quick action to boost my bank balance</span>
+                </label>
+                
+                <div class="completion-bar" style="margin-top: 20px;">
+                    <div class="completion-fill" id="dailyProgress"></div>
+                </div>
+                <p id="dailyProgressText">Complete your daily actions above!</p>
+            </div>
+            
+            <div class="mini-win">
+                <strong>Daily Reflection:</strong><br>
+                <textarea class="interactive-input" rows="2" placeholder="What worked well today?"></textarea>
+                <textarea class="interactive-input" rows="2" placeholder="What will you improve tomorrow?"></textarea>
+            </div>
+            
+            <div class="tip-box" style="text-align: center; font-size: 1.1rem; font-weight: 600;">
+                "Small wins today = big gains tomorrow" 💪
+            </div>
+        </div>
+
+        <!-- Page 10: Closing -->
+        <div class="page" id="page10">
+            <div class="page-header">
+                <div class="page-number">Page 10 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 91%"></div>
+                </div>
+            </div>
+            
+            <h2>🎉 You Did It!</h2>
+            
+            <div class="highlight-box">
+                <h3>🤔 Final Reflection:</h3>
+                <textarea class="interactive-input" rows="3" placeholder="What worked best for you in this guide?"></textarea>
+                <textarea class="interactive-input" rows="3" placeholder="What money habit will you focus on this week?"></textarea>
+            </div>
+            
+            <div class="mini-win">
+                <strong>🎯 Your Next Steps:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Use this tracker for the next 7 days</li>
+                    <li>Focus on just 1-2 habit swaps to start</li>
+                    <li>Celebrate small wins along the way!</li>
+                </ul>
+            </div>
+            
+            <div class="social-footer">
+                <h3 style="color: #1b4332; margin-bottom: 15px;">Keep Growing! 📈</h3>
+                <p style="margin-bottom: 10px;">Follow for more money tips and success stories:</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 20px 0;">
+                    <a href="https://www.tiktok.com/@moneymovesaz" target="_blank" class="cta-button" style="padding: 12px 25px; font-size: 1rem;">
+                        📱 Follow My TikTok
+                    </a>
+                </div>
+                <p style="font-size: 0.9rem; color: #6b7280; margin-top: 15px;">
+                    Share your wins using #CashControlWin
+                </p>
+            </div>
+        </div>
+
+        <!-- Page 11: Upgrade/Next Steps -->
+        <div class="page" id="page11">
+            <div class="page-header">
+                <div class="page-number">Page 11 of 11</div>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <span style="font-size: 3rem;">🚀⭐💰</span>
+            </div>
+            
+            <h1 style="font-size: 2.2rem; margin-bottom: 10px;">Want to Take Control Even Faster?</h1>
+            <div class="subtitle">If you found the Cash Control Blueprint helpful, these tools take it even further.</div>
+            
+            <div class="social-proof">
+                <h3 style="color: #f59e0b; margin-bottom: 10px;">⭐ Trusted by Beginners & Young Creators</h3>
+                <p style="font-weight: 500;">These trackers, planners, and templates have helped others turn small daily wins into £100+ months.</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3 style="color: #1b4332;">Step-by-Step Trackers</h3>
+                    <p>Hit your first £100 with guided daily and weekly planners that do the thinking for you.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 style="color: #1b4332;">Customizable Templates</h3>
+                    <p>Ready-to-use systems for saving challenges, side hustles, and habit tracking.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3 style="color: #1b4332;">Simple Action Systems</h3>
+                    <p>No overwhelm - just clear, actionable steps you can start using today.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔥</span>
+                    <h3 style="color: #1b4332;">Exclusive Money Challenges</h3>
+                    <p>Fun 7-day and 30-day challenges that turn saving and earning into an addictive game.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="text-align: center;">
+                <h3 style="color: #7209b7;">🔥 Discover the Systems Most People Don't Know About</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 20px;">It's all ready for you to use - no guesswork, no complicated setups.</p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://stan.store/MoneyMovesAZ" target="_blank" class="cta-button">
+                        🛍️ Check Out My Store
+                    </a>
+                    <a href="https://www.tiktok.com/@moneymovesaz" target="_blank" class="cta-button" style="background: linear-gradient(135deg, #ff6d00, #ff8533);">
+                        📱 Follow My TikTok
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tip-box" style="text-align: center;">
+                <strong>Ready when you are!</strong> Start with what you learned here, and level up whenever you're ready for more. 🌟
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changePage(-1)">← Previous</button>
+        <span id="pageIndicator" style="padding: 10px 15px; font-weight: 600; color: #1b4332;">1 / 11</span>
+        <button class="nav-btn" id="nextBtn" onclick="changePage(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 11;
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                // Hide current page
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                
+                // Show new page
+                currentPage = newPage;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+                
+                // Update navigation
+                updateNavigation();
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const pageIndicator = document.getElementById('pageIndicator');
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+            pageIndicator.textContent = `${currentPage} / ${totalPages}`;
+        }
+
+        function updateProgress() {
+            // This function can be expanded to track overall progress
+            console.log('Progress updated');
+        }
+
+        function updateQuickWins() {
+            const checkboxes = document.querySelectorAll('#page7 input[type="checkbox"]');
+            const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const progress = (checked / checkboxes.length) * 100;
+            
+            const progressBar = document.getElementById('quickWinProgress');
+            const progressText = document.getElementById('quickWinText');
+            
+            progressBar.style.width = progress + '%';
+            
+            if (progress === 0) {
+                progressText.textContent = 'Complete the actions above to see your progress!';
+            } else if (progress < 100) {
+                progressText.textContent = `Great start! ${checked} of ${checkboxes.length} completed (${Math.round(progress)}%)`;
+            } else {
+                progressText.textContent = '🎉 Amazing! All quick wins completed!';
+            }
+        }
+
+        function updateDailyProgress() {
+            const checkboxes = document.querySelectorAll('#page9 .checkbox-item input[type="checkbox"]');
+            const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const progress = (checked / checkboxes.length) * 100;
+            
+            const progressBar = document.getElementById('dailyProgress');
+            const progressText = document.getElementById('dailyProgressText');
+            
+            progressBar.style.width = progress + '%';
+            
+            if (progress === 0) {
+                progressText.textContent = 'Complete your daily actions above!';
+            } else if (progress < 100) {
+                progressText.textContent = `Excellent! ${checked} of ${checkboxes.length} daily actions completed`;
+            } else {
+                progressText.textContent = '🔥 Perfect day! All actions completed!';
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changePage(-1);
+            } else if (e.key === 'ArrowRight') {
+                changePage(1);
+            }
+        });
+
+        // Initialize navigation
+        updateNavigation();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'977d1619d0ecbdc4',t:'MTc1NjY0OTE2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+                                                                   
